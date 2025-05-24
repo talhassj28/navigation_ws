@@ -1,0 +1,33 @@
+name: navigation
+services:
+  ws:
+    container_name: navigation_ws
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - DISPLAY=:0.0
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - NVIDIA_VISIBLE_DEVICES=all  # oder eine spezifische GPU-ID, z.B. "0"
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility  # spezifiziert die benötigten GPU-Funktionen
+    volumes:
+      - ../configuration:/home/navigation_ws/configuration
+      - ../src:/home/navigation_ws/src
+      - ../scripts:/home/navigation_ws/scripts
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+    network_mode: host
+    tty: true
+    entrypoint: bash /home/navigation_ws/configuration/docker-entrypoint.sh
+    stdin_open: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1  # oder "all" für alle verfügbaren GPUs
+              capabilities: [gpu]
