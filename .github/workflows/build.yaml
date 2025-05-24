@@ -1,0 +1,26 @@
+name: build
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Compose
+        run: |
+          docker compose -f docker/docker-compose.yaml up -d
+
+      - name: Run build script in container
+        run: |
+          docker exec navigation_ws bash -c "y | ./scripts/10_rebuild.bash"
+
+      - name: Shut down Docker Compose
+        run: |
+          docker compose -f docker/docker-compose.yaml down
