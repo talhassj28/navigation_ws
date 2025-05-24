@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     lsb-release \
     gnupg \
-    python3-pip \ 
+    python3-pip \
     python3-rosdep \
     nano \
     screen \
