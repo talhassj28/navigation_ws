@@ -1,0 +1,55 @@
+name: build
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Restore Docker image tarball from cache
+        id: cache-image
+        uses: actions/cache@v4
+        with:
+          path: navigation-ws.tar
+          key: navigation-ws-image-${{ hashFiles('docker/**') }}
+
+      - name: Build Docker image with Compose
+        if: steps.cache-image.outputs.cache-hit != 'true'
+        run: docker compose -f docker/docker-compose.yaml build
+
+      - name: Save Docker image to tarball
+        if: steps.cache-image.outputs.cache-hit != 'true'
+        run: docker image save navigation-ws -o navigation-ws.tar
+
+  build-workspace:
+    needs: build-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Restore Docker image tarball from cache
+        uses: actions/cache@v4
+        with:
+          path: navigation-ws.tar
+          key: navigation-ws-image-${{ hashFiles('docker/**') }}
+
+      - name: Load Docker image
+        run: docker image load -i navigation-ws.tar
+
+      - name: Start container from image
+        run: docker compose -f docker/docker-compose.yaml up -d
+
+      - name: Run build script in container
+        run: docker exec navigation_ws bash -c "y | ./scripts/10_rebuild.bash"
+
+      - name: Shut down Docker Compose
+        run: docker compose -f docker/docker-compose.yaml down
