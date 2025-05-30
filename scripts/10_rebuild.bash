@@ -2,7 +2,7 @@
 
 cd /home/navigation_ws
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 
 read -p "Do you wish to perform a clean installation? [y/n] " yn
 case $yn in
