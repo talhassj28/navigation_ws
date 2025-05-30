@@ -7,10 +7,10 @@ apt-get update
 cd /home/navigation_ws
 
 echo 'Updating rosdeps'
-rosdep update --rosdistro humble
+rosdep update --rosdistro jazzy
 rosdep install --from-path src --ignore-src -r -y
 
 echo 'Building workspace'
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 
 source /home/navigation_ws/install/local_setup.bash
