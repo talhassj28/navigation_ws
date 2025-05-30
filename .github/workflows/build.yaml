@@ -49,7 +49,7 @@ jobs:
         run: docker compose -f docker/docker-compose.yaml up -d
 
       - name: Run build script in container
-        run: docker exec navigation_ws bash -c "y | ./scripts/10_rebuild.bash"
+        run: docker exec navigation_ws bash -c "yes | ./scripts/10_rebuild.bash"
 
       - name: Shut down Docker Compose
         run: docker compose -f docker/docker-compose.yaml down
