@@ -11,6 +11,11 @@ case $yn in
     * ) ;;
 esac
 
-colcon build
+read -p "Do you wish to perform a symlink installation? [y/n] " yn
+case $yn in
+    [Yy]* ) colcon build --symlink-install;;
+    [Nn]* ) colcon build;;
+    * ) ;;
+esac
 
 source /home/navigation_ws/install/local_setup.bash
