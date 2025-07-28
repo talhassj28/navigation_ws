@@ -47,4 +47,4 @@ RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;34m\
 RUN echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc
 RUN echo 'source /home/navigation_ws/install/local_setup.bash' >> ~/.bashrc
 
-COPY "./.screenrc" "~/.screenrc"
+COPY "./.screenrc" "/home/.screenrc"
