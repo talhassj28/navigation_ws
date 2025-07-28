@@ -62,16 +62,11 @@ def generate_launch_description():
     )
     gz_server = GzServer(
         world_sdf_file=world_path,
-        container_name="ros_gz_container",
-        create_own_container="True",
-        use_composition="True",
     )
     ros_gz_bridge = RosGzBridge(
         bridge_name="ros_gz_bridge",
         config_file=bridge_config_path,
-        container_name="ros_gz_container",
-        create_own_container="False",
-        use_composition="True",
+        extra_bridge_params=[{}],
     )
     spawn_entity = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(gz_spawn_model_launch_source),
