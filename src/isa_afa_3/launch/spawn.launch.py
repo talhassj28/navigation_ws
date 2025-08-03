@@ -14,7 +14,7 @@ def generate_launch_description():
 
     # Load URDF File #
     urdf_file = "robot.xacro"
-    robot_desc_path = os.path.join(package_directory, "urdf", urdf_file)
+    robot_desc_path = os.path.join(package_directory, "src", "description", urdf_file)
     print("URDF Loaded !")
 
     # Robot State Publisher (RSP) #

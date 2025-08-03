@@ -20,7 +20,7 @@ def generate_launch_description():
     install_dir_path = get_package_prefix(package_description) + "/share"
     robot_meshes_path = os.path.join(package_directory, "meshes")
     models_path = os.path.join(package_directory, "models")
-    urdf_path = os.path.join(package_directory, "urdf")
+    urdf_path = os.path.join(package_directory, "src", "description")
     worlds_path = os.path.join(package_directory, "worlds")
     gazebo_resource_paths = [
         install_dir_path,
@@ -60,7 +60,7 @@ def generate_launch_description():
 
     # Load URDF File #
     urdf_file = "robot.xacro"
-    robot_desc_path = os.path.join(package_directory, "urdf", urdf_file)
+    robot_desc_path = os.path.join(package_directory, "src", "description", urdf_file)
     print("URDF Loaded !")
 
     # Robot State Publisher (RSP) #
