@@ -15,6 +15,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     volumes:
+      - ..:/home/navigation_ws
       - ../configuration:/home/navigation_ws/configuration
       - ../src:/home/navigation_ws/src
       - ../scripts:/home/navigation_ws/scripts
