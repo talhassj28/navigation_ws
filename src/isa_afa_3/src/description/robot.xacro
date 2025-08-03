@@ -2,7 +2,7 @@
 
 <robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find isa_afa_3)/urdf/robot.gazebo" />
+    <xacro:include filename="$(find isa_afa_3)/src/description/robot.gazebo" />
 
     <!-- Parameters -->
     <xacro:property name="chassis_mass" value="10" />
@@ -10,7 +10,7 @@
     <!-- LINKS -->
 
     <!-- Link - chassis -->
-    <link name="link_chassis">
+    <link name="base_link">
         <inertial>
             <mass value="${chassis_mass}" />
             <origin xyz="0 0 0.3" rpy="0 0 0" />
@@ -18,14 +18,16 @@
         </inertial>
 
         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://isa_afa_3/meshes/chassis.stl" />
+                <mesh filename="package://isa_afa_3/meshes/chassis.stl"/>
             </geometry>
         </collision>
 
         <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://isa_afa_3/meshes/chassis.stl" />
+                <mesh filename="package://isa_afa_3/meshes/chassis.stl"/>
             </geometry>
             <material name="DarkBlue">
                 <color rgba="0.2 0.2 0.4 1" />
@@ -33,224 +35,173 @@
         </visual>
     </link>
 
+    <!-- Robot Footprint -->
+    <link name='base_footprint'>
+        <inertial>
+            <mass value="${chassis_mass}" />
+            <origin xyz="0 0 0.3" rpy="0 0 0" />
+            <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
+        </inertial>
+    </link>
+
     <!-- Link - rear left wheel -->
-    <link name="link_rear_left_wheel">
+    <link name="rear_left_wheel_link">
         <inertial>
             <mass value="1" />
             <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
         </inertial>
 
-        <!-- Tires -->
         <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.12" radius="0.4"/>
+                <mesh filename="package://isa_afa_3/meshes/wheel_left.stl" />
             </geometry>
         </collision>
+
         <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://isa_afa_3/meshes/wheel.stl" />
+                <mesh filename="package://isa_afa_3/meshes/wheel_left.stl" />
             </geometry>
             <material name="Black">
                 <color rgba="0.1 0.1 0.1 1" />
-            </material>
-        </visual>
-
-        <!-- Axle -->
-        <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-        </collision>
-        <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
-            </material>
-        </visual>
-
-        <!-- Hubcap -->
-        <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.18 0" />
-            <geometry>
-                <box size="0.02 0.5 0.02" />
-            </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
             </material>
         </visual>
     </link>
 
     <!-- Link - rear right wheel -->
-    <link name="link_rear_right_wheel">
+    <link name="rear_right_wheel_link">
         <inertial>
             <mass value="1" />
             <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
         </inertial>
 
-        <!-- Tires -->
         <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.12" radius="0.4"/>
+                <mesh filename="package://isa_afa_3/meshes/wheel_right.stl" />
             </geometry>
         </collision>
+
         <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://isa_afa_3/meshes/wheel.stl" />
+                <mesh filename="package://isa_afa_3/meshes/wheel_right.stl" />
             </geometry>
             <material name="Black">
                 <color rgba="0.1 0.1 0.1 1" />
-            </material>
-        </visual>
-
-        <!-- Axle -->
-        <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-        </collision>
-        <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
-            </material>
-        </visual>
-
-        <!-- Hubcap -->
-        <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.18 0" />
-            <geometry>
-                <box size="0.02 0.5 0.02" />
-            </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
             </material>
         </visual>
     </link>
 
     <!-- Link - front left wheel -->
-    <link name="link_front_left_wheel">
+    <link name="front_left_wheel_link">
         <inertial>
             <mass value="1" />
             <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
         </inertial>
 
-        <!-- Tires -->
         <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.12" radius="0.4"/>
+                <mesh filename="package://isa_afa_3/meshes/wheel_left.stl" />
             </geometry>
         </collision>
+
         <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://isa_afa_3/meshes/wheel.stl" />
+                <mesh filename="package://isa_afa_3/meshes/wheel_left.stl" />
             </geometry>
             <material name="Black">
                 <color rgba="0.1 0.1 0.1 1" />
-            </material>
-        </visual>
-
-        <!-- Axle -->
-        <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-        </collision>
-        <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
-            </material>
-        </visual>
-
-        <!-- Hubcap -->
-        <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 0.18 0" />
-            <geometry>
-                <box size="0.02 0.5 0.02" />
-            </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
             </material>
         </visual>
     </link>
 
     <!-- Link - front right wheel -->
-    <link name="link_front_right_wheel">
+    <link name="front_right_wheel_link">
         <inertial>
             <mass value="1" />
             <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
         </inertial>
 
-        <!-- Tires -->
         <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.12" radius="0.4"/>
+                <mesh filename="package://isa_afa_3/meshes/wheel_right.stl" />
             </geometry>
         </collision>
+
         <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.18 0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://isa_afa_3/meshes/wheel.stl" />
+                <mesh filename="package://isa_afa_3/meshes/wheel_right.stl" />
             </geometry>
             <material name="Black">
                 <color rgba="0.1 0.1 0.1 1" />
             </material>
         </visual>
+    </link>
 
-        <!-- Axle -->
+    <!-- Link - front axle -->
+    <link name="front_axle_link">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
+        </inertial>
+
         <collision>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.06 0" />
+            <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
             <geometry>
-                <cylinder length="0.12" radius="0.08"/>
+                <cylinder length="1.4" radius="0.1"/>
             </geometry>
         </collision>
+
         <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.06 0" />
+            <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
             <geometry>
-                <cylinder length="0.12" radius="0.08"/>
+                <cylinder length="1.4" radius="0.1"/>
             </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
+            <material name="Black">
+                <color rgba="0.1 0.1 0.1 1" />
             </material>
         </visual>
+    </link>
 
-        <!-- Hubcap -->
-        <visual>
-            <origin rpy="${pi/2} 0 0" xyz="0 -0.18 0" />
+    <!-- Link - rear axle -->
+    <link name="rear_axle_link">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
+        </inertial>
+
+        <collision>
+            <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
             <geometry>
-                <box size="0.02 0.5 0.02" />
+                <cylinder length="1.4" radius="0.1"/>
             </geometry>
-            <material name="Grey">
-                <color rgba="0.6 0.6 0.6 1" />
+        </collision>
+
+        <visual>
+            <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="1.4" radius="0.1"/>
+            </geometry>
+            <material name="Black">
+                <color rgba="0.1 0.1 0.1 1" />
             </material>
         </visual>
     </link>
 
     <!-- Link - left hinge -->
-    <link name="link_left_hinge">
+    <link name="left_hinge_link">
         <inertial>
             <mass value="0.001"/>
             <inertia ixx="0.001" ixy = "0" ixz = "0" iyy="0.001" iyz = "0" izz="0.001"/>
@@ -258,7 +209,7 @@
     </link>
 
     <!-- Link - right hinge -->
-    <link name="link_right_hinge">
+    <link name="right_hinge_link">
         <inertial>
             <mass value="0.001"/>
             <inertia ixx="0.001" ixy = "0" ixz = "0" iyy="0.001" iyz = "0" izz="0.001"/>
@@ -267,68 +218,86 @@
 
     <!-- JOINTS -->
 
-    <!-- Joint - chassis / rear left wheel -->
-    <joint name="joint_chassis_rear_left_wheel" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.5 0.65 0" />
-        <child link="link_rear_left_wheel" />
-        <parent link="link_chassis" />
-        <axis rpy="0 0 0" xyz="0 1 0" />
-        <limit effort="10000" velocity="1000" />
+    <!-- Joint - chassis / front axle -->
+    <joint name="chassis_front_axle_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <child link="front_axle_link" />
+        <parent link="base_link" />
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
 
-    <!-- Joint - chassis / rear right wheel -->
-    <joint name="joint_chassis_rear_right_wheel" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.5 -0.65 0" />
-        <child link="link_rear_right_wheel" />
-        <parent link="link_chassis" />
-        <axis rpy="0 0 0" xyz="0 1 0" />
-        <limit effort="10000" velocity="1000" />
+    <joint name='base_joint' type='fixed'>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <child link="base_footprint" />
+        <parent link="base_link" />
+    </joint>
+
+    <!-- Joint - chassis / rear axle -->
+    <joint name="chassis_rear_axle_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-2.6 0 0" />
+        <child link="rear_axle_link" />
+        <parent link="base_link" />
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
 
-    <!-- Joint - chassis / left hinge -->
-    <joint name="joint_steering_left_hinge" type="revolute">
-        <child link="link_left_hinge" />
-        <parent link="link_chassis" />
-        <origin xyz="0.5 0.65 0" rpy="0 0 0" />
+    <!-- Joint - front axle / left hinge -->
+    <joint name="steering_left_hinge_joint" type="revolute">
+        <child link="left_hinge_link" />
+        <parent link="front_axle_link" />
+        <origin xyz="0 0.7 0" rpy="0 0 0" />
         <axis xyz="0 0 1" />
         <limit lower="-0.7" upper="0.7" effort="10" velocity="100" />
     </joint>
 
-    <!-- Joint - chassis / right hinge -->
-    <joint name="joint_steering_right_hinge" type="revolute">
-        <child link="link_right_hinge" />
-        <parent link="link_chassis" />
-        <origin xyz="0.5 -0.65 0" rpy="0 0 0" />
+    <!-- Joint - front axle / right hinge -->
+    <joint name="steering_right_hinge_joint" type="revolute">
+        <child link="right_hinge_link" />
+        <parent link="front_axle_link" />
+        <origin xyz="0 -0.7 0" rpy="0 0 0" />
         <axis xyz="0 0 1" />
         <limit lower="-0.7" upper="0.7" effort="10" velocity="100" />
     </joint>
 
     <!-- Joint - left hinge / front left wheel -->
-    <joint name="joint_left_hinge_wheel" type="continuous">
-        <child link="link_front_left_wheel" />
-        <parent link="link_left_hinge" />
+    <joint name="left_hinge_wheel_joint" type="continuous">
+        <child link="front_left_wheel_link" />
+        <parent link="left_hinge_link" />
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
     </joint>
 
     <!-- Joint - right hinge / front right wheel -->
-    <joint name="joint_right_hinge_wheel" type="continuous">
-        <child link="link_front_right_wheel" />
-        <parent link="link_right_hinge" />
+    <joint name="right_hinge_wheel_joint" type="continuous">
+        <child link="front_right_wheel_link" />
+        <parent link="right_hinge_link" />
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
     </joint>
 
+    <!-- Joint - rear axle / rear left wheel -->
+    <joint name="rear_axle_left_wheel_joint" type="continuous">
+        <child link="rear_left_wheel_link" />
+        <parent link="rear_axle_link" />
+        <origin xyz="0 0.7 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+
+    <!-- Joint - rear axle / rear right wheel -->
+    <joint name="rear_axle_right_wheel_joint" type="continuous">
+        <child link="rear_right_wheel_link" />
+        <parent link="rear_axle_link" />
+        <origin xyz="0 -0.7 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+
     <!-- Laser scan -->
-    <joint name="joint_laser_scan_chassis" type="fixed">
-        <origin rpy="0 0 0" xyz="0.8 0 0.4" />
-        <child link="link_laser_scan" />
-        <parent link="link_chassis" />
+    <joint name="lidar_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-1.3 0 1.6" />
+        <child link="lidar_link" />
+        <parent link="base_link" />
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
-    <link name="link_laser_scan">
+    <link name="lidar_link">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.5" />
