@@ -87,7 +87,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        left_hinge_link:
+        left_kingpin_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -111,7 +111,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        right_hinge_link:
+        right_kingpin_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -138,7 +138,7 @@ Visualization Manager:
           Value: true
         front_right_wheel_link:
           Value: true
-        left_hinge_link:
+        left_kingpin_link:
           Value: true
         lidar_link:
           Value: true
@@ -148,7 +148,7 @@ Visualization Manager:
           Value: true
         rear_right_wheel_link:
           Value: true
-        right_hinge_link:
+        right_kingpin_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -158,10 +158,10 @@ Visualization Manager:
       Tree:
         base_link:
           front_axle_link:
-            left_hinge_link:
+            left_kingpin_link:
               front_left_wheel_link:
                 {}
-            right_hinge_link:
+            right_kingpin_link:
               front_right_wheel_link:
                 {}
           lidar_link:
