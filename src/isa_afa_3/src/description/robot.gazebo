@@ -205,7 +205,7 @@
       <visualize>true</visualize>
       <update_rate>5</update_rate>
       <topic>/scan</topic>
-      <frame_id>lidar_link</frame_id>
+      <gz_frame_id>lidar_link</gz_frame_id>
       <lidar>
         <scan>
           <horizontal>
@@ -217,7 +217,7 @@
         </scan>
         <range>
           <min>0.120</min>
-          <max>3.500</max>
+          <max>10.0</max>
           <resolution>0.015</resolution>
         </range>
         <noise>
@@ -239,7 +239,7 @@
       <update_rate>100</update_rate>
       <visualize>true</visualize>
       <topic>/imu</topic>
-      <frame_id>imu_link</frame_id>
+      <gz_frame_id>imu_link</gz_frame_id>
       <imu>
         <angular_velocity>
           <x>
@@ -304,7 +304,7 @@
       <visualize>true</visualize>
       <update_rate>5.0</update_rate>
       <topic>/depth_camera</topic>
-      <frame_id>camera_link</frame_id>
+      <gz_frame_id>camera_link</gz_frame_id>
       <camera>
         <horizontal_fov>1.047198</horizontal_fov>
         <image>
