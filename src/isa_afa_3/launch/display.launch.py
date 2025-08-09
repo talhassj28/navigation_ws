@@ -24,7 +24,7 @@ def generate_launch_description():
         pkg_share, "src", "description", "robot.xacro"
     )
     default_rviz_config_path = os.path.join(pkg_share, "rviz", "config.rviz")
-    world_path = os.path.join(pkg_share, "worlds", "empty_world.sdf")
+    world_path = os.path.join(pkg_share, "worlds", "streets_with_walls_world.sdf")
     bridge_config_path = os.path.join(pkg_share, "config", "bridge_config.yaml")
 
     robot_state_publisher_node = Node(
@@ -53,10 +53,10 @@ def generate_launch_description():
     spawn_entity = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(gz_spawn_model_launch_source),
         launch_arguments={
-            "world": "empty",
+            "world": "steets_with_walls",
             "topic": "/robot_description",
             "entity_name": "robot",
-            "z": "0.3",
+            "z": "10.0",
         }.items(),
     )
 
