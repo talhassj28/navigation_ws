@@ -25,6 +25,7 @@ def generate_launch_description():
     )
     default_rviz_config_path = os.path.join(pkg_share, "rviz", "config.rviz")
     world_path = os.path.join(pkg_share, "worlds", "streets_with_walls_world.sdf")
+    world_name = "steets_with_walls"
     bridge_config_path = os.path.join(pkg_share, "config", "bridge_config.yaml")
 
     robot_state_publisher_node = Node(
@@ -53,7 +54,7 @@ def generate_launch_description():
     spawn_entity = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(gz_spawn_model_launch_source),
         launch_arguments={
-            "world": "steets_with_walls",
+            "world": world_name,
             "topic": "/robot_description",
             "entity_name": "robot",
             "z": "10.0",
