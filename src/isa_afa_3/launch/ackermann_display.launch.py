@@ -21,12 +21,13 @@ def generate_launch_description():
         ros_gz_sim_share, "launch", "gz_spawn_model.launch.py"
     )
     default_model_path = os.path.join(
-        pkg_share, "src", "description", "robot.xacro"
+        pkg_share, "src", "description", "vehicle_ackermann.xacro"
     )
-    default_rviz_config_path = os.path.join(pkg_share, "rviz", "config.rviz")
+    default_rviz_config_path = os.path.join(pkg_share, "rviz", "config_ackermann.rviz")
     world_path = os.path.join(pkg_share, "worlds", "streets_with_walls_world.sdf")
     world_name = "steets_with_walls"
     bridge_config_path = os.path.join(pkg_share, "config", "bridge_config.yaml")
+    gui_config_path = os.path.join(pkg_share, "config", "gz_gui.config")
 
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
@@ -56,7 +57,7 @@ def generate_launch_description():
         launch_arguments={
             "world": world_name,
             "topic": "/robot_description",
-            "entity_name": "robot",
+            "entity_name": "vehicle_ackermann",
             "z": "10.0",
         }.items(),
     )
@@ -89,7 +90,7 @@ def generate_launch_description():
                 default_value=default_rviz_config_path,
                 description="Absolute path to rviz config file",
             ),
-            ExecuteProcess(cmd=["gz", "sim", "-g"], output="screen"),
+            ExecuteProcess(cmd=["gz", "sim", "-g", "--gui-config", gui_config_path], output="screen"),
             robot_state_publisher_node,
             robot_localization_node,
             rviz_node,

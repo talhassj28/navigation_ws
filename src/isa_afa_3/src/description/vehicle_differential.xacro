@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
-  <xacro:include filename="$(find isa_afa_3)/src/description/robot.gazebo" />
+  <xacro:include filename="$(find isa_afa_3)/src/description/vehicle_differential.gazebo" />
 
   <!-- Properties -->
   <xacro:property name="chassis_mass" value="1000" />
@@ -188,22 +188,6 @@
     </visual>
   </link>
 
-  <!-- Link - left kingpin -->
-  <link name="left_kingpin_link">
-    <inertial>
-      <mass value="0.01" />
-      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
-    </inertial>
-  </link>
-
-  <!-- Link - right kingpin -->
-  <link name="right_kingpin_link">
-    <inertial>
-      <mass value="0.01" />
-      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
-    </inertial>
-  </link>
-
   <!-- Link - lidar -->
   <link name="lidar_link">
     <inertial>
@@ -283,37 +267,19 @@
     <parent link="base_link" />
   </joint>
 
-  <!-- Joint - front axle / left kingpin -->
-  <joint name="steering_left_kingpin_joint" type="revolute">
-    <child link="left_kingpin_link" />
-    <parent link="front_axle_link" />
-    <origin xyz="0 ${chassis_width/2-wheel_width} 0" rpy="0 0 0" />
-    <axis xyz="0 0 1" />
-    <limit lower="-0.7" upper="0.7" effort="100" velocity="1" />
-  </joint>
-
-  <!-- Joint - front axle / right kingpin -->
-  <joint name="steering_right_kingpin_joint" type="revolute">
-    <child link="right_kingpin_link" />
-    <parent link="front_axle_link" />
-    <origin xyz="0 -${chassis_width/2-wheel_width} 0" rpy="0 0 0" />
-    <axis xyz="0 0 1" />
-    <limit lower="-0.7" upper="0.7" effort="100" velocity="1" />
-  </joint>
-
-  <!-- Joint - left kingpin / front left wheel -->
-  <joint name="left_kingpin_wheel_joint" type="continuous">
+  <!-- Joint - front axle / front left wheel -->
+  <joint name="front_axle_left_wheel_joint" type="continuous">
     <child link="front_left_wheel_link" />
-    <parent link="left_kingpin_link" />
-    <origin xyz="0 ${wheel_width/2} 0" rpy="0 0 0" />
+    <parent link="front_axle_link" />
+    <origin xyz="0 ${(chassis_width-wheel_width)/2} 0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
-  <!-- Joint - right kingpin / front right wheel -->
-  <joint name="right_kingpin_wheel_joint" type="continuous">
+  <!-- Joint - front axle / front right wheel -->
+  <joint name="front_axle_right_wheel_joint" type="continuous">
     <child link="front_right_wheel_link" />
-    <parent link="right_kingpin_link" />
-    <origin xyz="0 -${wheel_width/2} 0" rpy="0 0 0" />
+    <parent link="front_axle_link" />
+    <origin xyz="0 -${(chassis_width-wheel_width)/2} 0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
