@@ -30,7 +30,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>160 200</size>
+              <size>110 110</size>
             </plane>
           </geometry>
           <material>
@@ -44,7 +44,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>160 200</size>
+              <size>110 110</size>
             </plane>
           </geometry>
           <surface>
@@ -85,7 +85,7 @@
     <include>
       <uri>model://streets_with_walls</uri>
       <name>streets</name>
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0 0 0 0 0 1.570796</pose>
     </include>
   </world>
 </sdf>
