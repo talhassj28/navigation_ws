@@ -46,5 +46,6 @@ RUN export ROS2_INSTALL_PATH=/opt/ros/jazzy
 RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;34m\]@\[\033[01;36m\]\h\[\033[01;33m\]\w\[\033[01;35m\]\$ \[\033[00m\]'" >> ~/.bashrc
 RUN echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc
 RUN echo 'source /home/navigation_ws/install/local_setup.bash' >> ~/.bashrc
+RUN echo 'source /home/navigation_ws/scripts/set_gz_env.bash' >> ~/.bashrc
 
 COPY "./.screenrc" "/home/.screenrc"
