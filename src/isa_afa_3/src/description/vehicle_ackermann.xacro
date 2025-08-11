@@ -21,6 +21,10 @@
   <xacro:property name="camera_width" value="0.1" />
   <xacro:property name="camera_depth" value="0.03" />
   <xacro:property name="camera_height" value="0.07" />
+  <xacro:property name="sonar_mass" value="0.05" />
+  <xacro:property name="sonar_width" value="0.1" />
+  <xacro:property name="sonar_depth" value="0.03" />
+  <xacro:property name="sonar_height" value="0.1" />
 
   <!-- Commonly used inertial: Box  -->
   <xacro:macro name="box_inertia" params="m w h d x y z">
@@ -262,6 +266,23 @@
     </collision>
   </link>
 
+  <!-- Link - sonar -->
+  <link name="sonar_link">
+    <xacro:box_inertia m="${sonar_mass}" w="${sonar_width}" d="${sonar_depth}" h="${sonar_height}" x="0" y="0" z="0" />
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
   <!-- Joint - chassis / footprint -->
   <joint name="base_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 -${wheel_radius}" />
@@ -350,6 +371,13 @@
   <joint name='camera_joint' type='fixed'>
     <origin rpy="0 0 0" xyz="0.9 0 0.3" />
     <child link="camera_link" />
+    <parent link="base_link" />
+  </joint>
+
+  <!-- Joint - chassis / sonar -->
+  <joint name='sonar_joint' type='fixed'>
+    <origin rpy="0 0 0" xyz="0.9 0 0.1" />
+    <child link="sonar_link" />
     <parent link="base_link" />
   </joint>
 </robot>

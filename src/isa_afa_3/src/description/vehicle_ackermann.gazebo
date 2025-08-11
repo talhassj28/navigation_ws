@@ -130,6 +130,17 @@
       </material>
     </visual>
   </gazebo>
+  <gazebo reference="sonar_link">
+    <visual>
+      <material>
+        <!-- Black -->
+        <ambient>0.1 0.1 0.1 1.0</ambient>
+        <diffuse>0.1 0.1 0.1 1.0</diffuse>
+        <specular>0.0 0.0 0.0 1.0</specular>
+        <emissive>0.0 0.0 0.0 1.0</emissive>
+      </material>
+    </visual>
+  </gazebo>
 
   <!-- Preserve fixed joints -->
   <gazebo reference="base_joint">
@@ -148,6 +159,9 @@
     <preserveFixedJoint>true</preserveFixedJoint>
   </gazebo>
   <gazebo reference="camera_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+  <gazebo reference="sonar_joint">
     <preserveFixedJoint>true</preserveFixedJoint>
   </gazebo>
 
@@ -316,6 +330,23 @@
           <far>3</far>
         </clip>
       </camera>
+    </sensor>
+  </gazebo>
+
+  <!-- Sonar Plugin-->
+  <gazebo reference="sonar_link">
+    <sensor name="sonar_sensor" type="sonar">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>5.0</update_rate>
+      <topic>/sonar</topic>
+      <gz_frame_id>sonar_link</gz_frame_id>
+      <sonar>
+        <geometry>cone</geometry>
+        <min>0.2</min>
+        <max>30</max>
+        <radius>15</radius>
+      </sonar>
     </sensor>
   </gazebo>
 </robot>
